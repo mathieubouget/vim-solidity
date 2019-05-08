@@ -215,7 +215,7 @@ hi def link   solAssemblyCond     Conditional
 
 " Builtin Methods
 syn keyword   solMethod           delete new var return import
-syn region    solMethodParens     start='(' end=')' contained transparent
+syn region    solMethodParens     start='(' end=')' contains=solString contained transparent
 syn keyword   solMethod           nextgroup=solMethodParens skipwhite skipempty
       \ blockhash require revert assert keccak256 sha256
       \ ripemd160 ecrecover addmod mullmod selfdestruct
