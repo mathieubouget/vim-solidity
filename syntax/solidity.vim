@@ -83,13 +83,6 @@ syn match     solOperator         '\v-\='
 
 hi def link   solOperator         Operator
 
-" Destructuring TODO: make in multiline...
-syn region    solDestructure      contained contains=solValueType,solComma,solFuncStorageType
-      \ start='\(\S\)\@<!(\s*\(uint\|int\|ufixed\|bytes\|address\|string\|bool\)\@='
-      \ end=')\s*\ze='
-
-hi def link   solDestructure      Keyword
-
 " Functions
 syn keyword   solConstructor      nextgroup=solFuncParam skipwhite skipempty
       \ constructor
@@ -274,7 +267,7 @@ hi def link   solIf               Keyword
 hi def link   solElse             Keyword
 
 " Loops
-syn match     solLoop             /\(\<for\>\|\<while\>\)/ contained skipwhite skipempty nextgroup=solIfParens
+syn match     solLoop             /\(\<for\>\|\<while\>\)/ contained skipwhite skipempty nextgroup=solLoopParens
 syn region    solLoopParens       start=/(/ end=/)/ contained nextgroup=solLoopBlock skipwhite skipempty transparent
 syn region    solLoopBlock        start=/{/ end=/}/ contained skipwhite skipempty transparent
 
