@@ -17,12 +17,13 @@ syn keyword   solStorageConst     contained skipempty skipwhite nextgroup=solSto
       \ constant
 syn keyword   solFuncStorageType  contained
       \ storage calldata memory
-syn keyword   solFuncPayableType  contained
+syn keyword   solPayableType  contained
       \ payable
 
 hi def link   solStorageType      Keyword
 hi def link   solFuncStorageType  Keyword
 hi def link   solStorageConst     Keyword
+hi def link   solPayableType     Keyword
 
 " Common Groups Highlighting
 hi def link   solParens           Normal
@@ -111,8 +112,8 @@ syn region    solFuncBody         contained contains=solDestructure,solComment,s
       \ start='{' 
       \ end='}' 
 syn match     solFuncCall         contained skipempty skipwhite nextgroup=solFuncCallParens
-      \ '\v(<if>|<uint>|<int>|<ufixed>|<bytes>|<address>|<string>|<bool>)@<!<[a-zA-Z_][0-9a-zA-z_]*\s*(\((\n|.|\s)*\))@='
-syn region    solFuncCallParens   contained transparent
+      \ '\v%(%(<if>|<uint>|<int>|<ufixed>|<bytes>|<address>|<string>|<bool>)\s*)@<!<[a-zA-Z_][0-9a-zA-z_]*\s*%(\((\n|.|\s)*\))@='
+syn region    solFuncCallParens   contained transparent contains=solString,solFuncCall,solConstant,solNumber,solMethod,solTypeCast,solComma
       \ start='('
       \ end=')'
 syn region    solFuncModParens    contained contains=solConstant nextgroup=solFuncReturn,solFuncModifier,solFuncModCustom,solFuncBody skipempty skipwhite transparent
@@ -210,7 +211,7 @@ hi def link   solAssemblyCond     Conditional
 
 " Builtin Methods
 syn keyword   solMethod           delete new var return import
-syn region    solMethodParens     start='(' end=')' contains=solString,solConstant,solNumber contained transparent
+syn region    solMethodParens     start='(' end=')' contains=solString,solConstant,solNumber,solFuncCall,solTypeCast,solMethod,solComma contained transparent
 syn keyword   solMethod           nextgroup=solMethodParens skipwhite skipempty
       \ blockhash require revert assert keccak256 sha256
       \ ripemd160 ecrecover addmod mullmod selfdestruct
@@ -232,27 +233,27 @@ syn match     solValueType        /\<int\d*\>/ nextgroup=solStorageType,solStora
 syn match     solValueType        /\<fixed\d*\>/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
 syn match     solValueType        /\<ufixed\d*\>/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
 syn match     solValueType        /\<bytes\d*\>/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
-syn match     solValueType        /\<address\>/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
+syn match     solValueType        /\<address\>/ nextgroup=solPayableType,solStorageType,solStorageConst skipwhite skipempty
 syn match     solValueType        /\<string\>/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
 syn match     solValueType        /\<bool\>/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
 
-syn match     solValueType        /\<uint\d*\[\]/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
-syn match     solValueType        /\<int\d*\[\]/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
-syn match     solValueType        /\<fixed\d*\[\]/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
-syn match     solValueType        /\<ufixed\d*\[\]/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
-syn match     solValueType        /\<bytes\d*\[\]/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
-syn match     solValueType        /\<address\[\]/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
-syn match     solValueType        /\<string\[\]/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
-syn match     solValueType        /bool\[\]/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
+syn match     solValueType        /\<uint\d*\s*\[\]/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
+syn match     solValueType        /\<int\d*\s*\[\]/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
+syn match     solValueType        /\<fixed\d*\s*\[\]/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
+syn match     solValueType        /\<ufixed\d*\s*\[\]/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
+syn match     solValueType        /\<bytes\d*\s*\[\]/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
+syn match     solValueType        /\<address\%(\spayable\)\s*\[\]/ contains=solPayableType nextgroup=solStorageType,solStorageConst skipwhite skipempty
+syn match     solValueType        /\<string\s*\[\]/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
+syn match     solValueType        /bool\s*\[\]/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
 
 syn match     solTypeCast         /\<uint\d*\ze\s*(/ nextgroup=solTypeCastParens skipwhite skipempty
 syn match     solTypeCast         /\<int\d*\ze\s*(/ nextgroup=solTypeCastParens skipwhite skipempty
 syn match     solTypeCast         /\<ufixed\d*\ze\s*(/ nextgroup=solTypeCastParens skipwhite skipempty
-syn match     solTypeCast         /\<bytes\*\ze\s*(/ nextgroup=solTypeCastParens skipwhite skipempty
+syn match     solTypeCast         /\<bytes\d*\ze\s*(/ nextgroup=solTypeCastParens skipwhite skipempty
 syn match     solTypeCast         /\<address\ze\s*(/ nextgroup=solTypeCastParens skipwhite skipempty
 syn match     solTypeCast         /\<string\ze\s*(/ nextgroup=solTypeCastParens skipwhite skipempty
 syn match     solTypeCast         /\<bool\ze\s*(/ nextgroup=solTypeCastParens skipwhite skipempty
-syn region    solTypeCastParens   start=/(/ end=/)/ contained transparent
+syn region    solTypeCastParens   start=/(/ end=/)/ contained contains=solMethod,solFuncCall,solString,solConstant,solNumber,solTypeCast,solComma transparent
 
 hi def link   solValueType        Type
 hi def link   solTypeCast         Type
