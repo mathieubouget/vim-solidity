@@ -171,11 +171,12 @@ syn keyword   solConstant         block msg now tx this abi
 
 hi def link   solConstant         Constant
 
+" TODO: add syntax for 'override' and 'abstract' 'try' 'immutable'
 " Reserved keywords https://solidity.readthedocs.io/en/v0.5.7/miscellaneous.html#reserved-keywords
-syn keyword   solReserved         abstract after alias apply auto case catch copyof default
-syn keyword   solReserved         define final immutable implements in inline let macro match
-syn keyword   solReserved         mutable null of override partial promise reference relocatable
-syn keyword   solReserved         sealed sizeof static supports switch try typedef typeof unchecked
+syn keyword   solReserved         after alias apply auto case catch copyof default
+syn keyword   solReserved         define final implements in inline let macro match
+syn keyword   solReserved         mutable null of partial promise reference relocatable
+syn keyword   solReserved         sealed sizeof static supports switch typedef typeof unchecked
 
 hi def link   solReserved         Error
 
