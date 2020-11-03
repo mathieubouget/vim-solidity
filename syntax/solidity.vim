@@ -89,6 +89,10 @@ syn keyword   solConstructor      nextgroup=solFuncParam skipwhite skipempty
       \ constructor
 syn keyword   solFunction         nextgroup=solFuncName,solFuncParam skipwhite skipempty
       \ function
+syn keyword   solFallback         nextgroup=solFuncParam skipwhite skipempty
+      \ fallback
+syn keyword   solReceive          nextgroup=solFuncParam skipwhite skipempty
+      \ receive
 syn match     solFuncName         contained nextgroup=solFuncParam skipwhite skipempty
       \ '\v<[a-zA-Z_][0-9a-zA-z_]*'
 syn region    solFuncParam
@@ -122,6 +126,8 @@ syn region    solFuncModParens    contained contains=solConstant nextgroup=solFu
 
 hi def link   solFunction         Define
 hi def link   solConstructor      Define
+hi def link   solFallback         Function
+hi def link   solReceive          Function
 hi def link   solFuncName         Function
 hi def link   solFuncModifier     Keyword
 hi def link   solFuncModCustom    Keyword
