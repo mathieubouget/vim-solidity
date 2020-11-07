@@ -120,7 +120,7 @@ syn match     solFuncCall         contained skipempty skipwhite nextgroup=solFun
 syn region    solFuncCallParens   contained transparent contains=solString,solFuncCall,solConstant,solNumber,solMethod,solTypeCast,solComma
       \ start='('
       \ end=')'
-syn region    solFuncModParens    contained contains=solConstant nextgroup=solFuncReturn,solFuncModifier,solFuncModCustom,solFuncBody skipempty skipwhite transparent
+syn region    solFuncModParens    contained contains=solString,solFuncCall,solConstant,solNumber,solTypeCast,solComma nextgroup=solFuncReturn,solFuncModifier,solFuncModCustom,solFuncBody skipempty skipwhite transparent
       \ start='('
       \ end=')'
 
