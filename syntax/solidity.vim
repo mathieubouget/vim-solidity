@@ -11,10 +11,12 @@ syn sync minlines=50
 
 " Common Groups
 syn match     solComma            ','
-syn keyword   solStorageType      contained skipempty skipwhite nextgroup=solStorageType,solStorageConst
+syn keyword   solStorageType      contained skipempty skipwhite nextgroup=solStorageType,solStorageConst,solStorageImmutable
       \ public private internal
 syn keyword   solStorageConst     contained skipempty skipwhite nextgroup=solStorageType
       \ constant
+syn keyword   solStorageImmutable     contained skipempty skipwhite nextgroup=solStorageType
+      \ immutable
 syn keyword   solFuncStorageType  contained
       \ storage calldata memory
 syn keyword   solPayableType  contained
@@ -23,7 +25,8 @@ syn keyword   solPayableType  contained
 hi def link   solStorageType      Keyword
 hi def link   solFuncStorageType  Keyword
 hi def link   solStorageConst     Keyword
-hi def link   solPayableType     Keyword
+hi def link   solStorageImmutable Keyword
+hi def link   solPayableType      Keyword
 
 " Common Groups Highlighting
 hi def link   solParens           Normal
@@ -32,15 +35,15 @@ hi def link   solComma            Normal
 " Complex Types
 syn keyword   solMapping          skipempty skipwhite nextgroup=solMappingParens
       \ mapping
-syn region    solMappingParens    start='(' end=')' contained contains=solValueType,solMapping nextgroup=solStorageType,solStorageConst skipempty skipwhite
+syn region    solMappingParens    start='(' end=')' contained contains=solValueType,solMapping nextgroup=solStorageType skipempty skipwhite
 syn keyword   solEnum             nextgroup=solEnumBody skipwhite skipempty
       \ enum
 syn region    solEnumBody         start='(' end=')' contained contains=solComma,solValueType
 syn keyword   solStruct           nextgroup=solStructBody skipempty skipwhite
       \ struct
 syn region    solStructBody       start='{' end='}' contained contains=solComma,solValueType,solStruct,solEnum,solMapping
-syn match     solCustomType       skipempty skipwhite nextgroup=solStorageType,solStorageConst
-      \ '\v[a-zA-Z_][a-zA-Z0-9_]*\s*(<public>|<private>|<internal>|<constant>)@='
+syn match     solCustomType       skipempty skipwhite nextgroup=solStorageType,solStorageConst,solStorageImmutable
+      \ '\v[a-zA-Z_][a-zA-Z0-9_]*\s*'
 
 hi def link   solMapping          Define
 hi def link   solEnum             Define
@@ -235,23 +238,23 @@ hi def link   solLabel            Label
 hi def link   solException        Exception
 
 " Simple Types
-syn match     solValueType        /\<uint\d*\>/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
-syn match     solValueType        /\<int\d*\>/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
-syn match     solValueType        /\<fixed\d*\>/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
-syn match     solValueType        /\<ufixed\d*\>/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
-syn match     solValueType        /\<bytes\d*\>/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
-syn match     solValueType        /\<address\>/ nextgroup=solPayableType,solStorageType,solStorageConst skipwhite skipempty
-syn match     solValueType        /\<string\>/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
-syn match     solValueType        /\<bool\>/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
+syn match     solValueType        /\<uint\d*\>/ nextgroup=solStorageType,solStorageConst,solStorageImmutable skipwhite skipempty
+syn match     solValueType        /\<int\d*\>/ nextgroup=solStorageType,solStorageConst,solStorageImmutable skipwhite skipempty
+syn match     solValueType        /\<fixed\d*\>/ nextgroup=solStorageType,solStorageConst,solStorageImmutable skipwhite skipempty
+syn match     solValueType        /\<ufixed\d*\>/ nextgroup=solStorageType,solStorageConst,solStorageImmutable skipwhite skipempty
+syn match     solValueType        /\<bytes\d*\>/ nextgroup=solStorageType,solStorageConst,solStorageImmutable skipwhite skipempty
+syn match     solValueType        /\<address\>/ nextgroup=solPayableType,solStorageType,solStorageConst,solStorageImmutable skipwhite skipempty
+syn match     solValueType        /\<string\>/ nextgroup=solStorageType,solStorageConst,solStorageImmutable skipwhite skipempty
+syn match     solValueType        /\<bool\>/ nextgroup=solStorageType,solStorageConst,solStorageImmutable skipwhite skipempty
 
-syn match     solValueType        /\<uint\d*\s*\[\]/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
-syn match     solValueType        /\<int\d*\s*\[\]/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
-syn match     solValueType        /\<fixed\d*\s*\[\]/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
-syn match     solValueType        /\<ufixed\d*\s*\[\]/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
-syn match     solValueType        /\<bytes\d*\s*\[\]/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
-syn match     solValueType        /\<address\%(\spayable\)\s*\[\]/ contains=solPayableType nextgroup=solStorageType,solStorageConst skipwhite skipempty
-syn match     solValueType        /\<string\s*\[\]/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
-syn match     solValueType        /bool\s*\[\]/ nextgroup=solStorageType,solStorageConst skipwhite skipempty
+syn match     solValueType        /\<uint\d*\s*\[\]/ nextgroup=solStorageType,solStorageConst,solStorageImmutable skipwhite skipempty
+syn match     solValueType        /\<int\d*\s*\[\]/ nextgroup=solStorageType,solStorageConst,solStorageImmutable skipwhite skipempty
+syn match     solValueType        /\<fixed\d*\s*\[\]/ nextgroup=solStorageType,solStorageConst,solStorageImmutable skipwhite skipempty
+syn match     solValueType        /\<ufixed\d*\s*\[\]/ nextgroup=solStorageType,solStorageConst,solStorageImmutable skipwhite skipempty
+syn match     solValueType        /\<bytes\d*\s*\[\]/ nextgroup=solStorageType,solStorageConst,solStorageImmutable skipwhite skipempty
+syn match     solValueType        /\<address\%(\spayable\)\s*\[\]/ contains=solPayableType nextgroup=solStorageType,solStorageConst,solStorageImmutable skipwhite skipempty
+syn match     solValueType        /\<string\s*\[\]/ nextgroup=solStorageType,solStorageConst,solStorageImmutable skipwhite skipempty
+syn match     solValueType        /bool\s*\[\]/ nextgroup=solStorageType,solStorageConst,solStorageImmutable skipwhite skipempty
 
 syn match     solTypeCast         /\<uint\d*\ze\s*(/ nextgroup=solTypeCastParens skipwhite skipempty
 syn match     solTypeCast         /\<int\d*\ze\s*(/ nextgroup=solTypeCastParens skipwhite skipempty
