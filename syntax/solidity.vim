@@ -120,7 +120,7 @@ syn region    solFuncBody         contained contains=solDestructure,solComment,s
       \ end='}' 
 syn match     solFuncCall         contained skipempty skipwhite nextgroup=solFuncCallParens
       \ '\v%(%(<if>|<uint>|<int>|<ufixed>|<bytes>|<address>|<string>|<bool>)\s*)@<!<[a-zA-Z_][0-9a-zA-z_]*\s*%(\((\n|.|\s)*\))@='
-syn region    solFuncCallParens   contained transparent contains=solString,solFuncCall,solConstant,solNumber,solMethod,solTypeCast,solComma
+syn region    solFuncCallParens   contained transparent contains=solString,solFuncCall,solConstant,solNumber,solMethod,solTypeCast,solComma,solOperator
       \ start='('
       \ end=')'
 syn region    solFuncModParens    contained contains=solString,solFuncCall,solConstant,solNumber,solTypeCast,solComma nextgroup=solFuncReturn,solFuncModifier,solFuncModCustom,solFuncBody skipempty skipwhite transparent
@@ -221,7 +221,7 @@ hi def link   solAssemblyCond     Conditional
 
 " Builtin Methods
 syn keyword   solMethod           delete new var return import
-syn region    solMethodParens     start='(' end=')' contains=solString,solConstant,solNumber,solFuncCall,solTypeCast,solMethod,solComma contained transparent
+syn region    solMethodParens     start='(' end=')' contains=solString,solConstant,solNumber,solFuncCall,solTypeCast,solMethod,solComma,solOperator contained transparent
 syn keyword   solMethod           nextgroup=solMethodParens skipwhite skipempty
       \ blockhash require revert assert keccak256 sha256
       \ ripemd160 ecrecover addmod mullmod selfdestruct
