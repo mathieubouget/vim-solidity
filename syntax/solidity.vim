@@ -119,7 +119,7 @@ syn region    solFuncBody         contained contains=solDestructure,solComment,s
       \ start='{' 
       \ end='}' 
 syn match     solFuncCall         contained skipempty skipwhite nextgroup=solFuncCallParens
-      \ '\v%(%(<if>|<uint>|<int>|<ufixed>|<bytes>|<address>|<string>|<bool>)\s*)@<!<[a-zA-Z_][0-9a-zA-z_]*\s*%(\((\n|.|\s)*\))@='
+      \ '\v%(%(<if>|<uint>|<int>|<ufixed>|<bytes>|<address>|<string>|<bool>)\s*)@<!<[a-zA-Z_][0-9a-zA-Z_]*\s*%(\((\n|.|\s)*\))@='
 syn region    solFuncCallParens   contained transparent contains=solString,solFuncCall,solConstant,solNumber,solMethod,solTypeCast,solComma,solOperator
       \ start='('
       \ end=')'
@@ -148,7 +148,7 @@ hi def link   solModifier         Define
 hi def link   solModifierName     Function
 hi def link   solModifierInsert   Function
 
-" Contracts, Librares, Interfaces
+" Contracts, Libraries, Interfaces
 syn match     solContract         /\<\%(contract\|library\|interface\)\>/ nextgroup=solContractName skipwhite
 syn match     solContractName     /\<[a-zA-Z_][0-9a-zA-Z_]*/ contained nextgroup=solContractParent skipwhite
 syn region    solContractParent   start=/\<is\>/ end='{' contained contains=solContractName,solComma,solInheritor
