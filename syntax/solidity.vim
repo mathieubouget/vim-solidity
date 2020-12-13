@@ -108,7 +108,7 @@ syn region    solFuncParam
       \ end=')'
 
 syn keyword   solFuncModifier     contained nextgroup=solFuncModifier,solFuncModCustom,solFuncReturn,solFuncBody skipwhite skipempty
-      \ external internal payable public pure view private constant
+      \ external internal payable public pure view private constant override virtual
 syn match     solFuncModCustom    contained nextgroup=solFuncModifier,solFuncModCustom,solFuncReturn,solFuncBody,solFuncModParens  skipempty skipwhite
       \ '\v<[a-zA-Z_][0-9a-zA-z_]*'
 syn keyword   solFuncReturn       contained nextgroup=solFuncRetParens skipwhite skipempty returns
@@ -149,6 +149,7 @@ hi def link   solModifierName     Function
 hi def link   solModifierInsert   Function
 
 " Contracts, Libraries, Interfaces
+syn match     solAbstract         /\<abstract\>/ nextgroup=SolContract skipwhite
 syn match     solContract         /\<\%(contract\|library\|interface\)\>/ nextgroup=solContractName skipwhite
 syn match     solContractName     /\<[a-zA-Z_][0-9a-zA-Z_]*/ contained nextgroup=solContractParent skipwhite
 syn region    solContractParent   start=/\<is\>/ end='{' contained contains=solContractName,solComma,solInheritor
@@ -156,6 +157,7 @@ syn match     solInheritor        /\<is\>/ contained
 syn region    solLibUsing         start=/\<using\>/ end=/\<for\>/ contains=solLibName
 syn match     solLibName          /[a-zA-Z_][0-9a-zA-Z_]*\s*\zefor/ contained
 
+hi def link   solAbstract         Special
 hi def link   solContract         Define
 hi def link   solContractName     Function
 hi def link   solInheritor        Keyword
