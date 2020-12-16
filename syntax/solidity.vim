@@ -108,18 +108,18 @@ syn region    solFuncParam
       \ end=')'
 
 syn keyword   solFuncModifier     contained nextgroup=solFuncModifier,solFuncModCustom,solFuncReturn,solFuncBody skipwhite skipempty
-      \ external internal payable public pure view private constant
+      \ external internal payable public pure view private constant override virtual
 syn match     solFuncModCustom    contained nextgroup=solFuncModifier,solFuncModCustom,solFuncReturn,solFuncBody,solFuncModParens  skipempty skipwhite
       \ '\v<[a-zA-Z_][0-9a-zA-z_]*'
 syn keyword   solFuncReturn       contained nextgroup=solFuncRetParens skipwhite skipempty returns
 syn region    solFuncRetParens    contains=solValueType,solFuncStorageType nextgroup=solFuncBody skipempty skipwhite
       \ start='(' 
       \ end=')' 
-syn region    solFuncBody         contained contains=solDestructure,solComment,solAssemblyBlock,solEmitEvent,solTypeCast,solMethod,solValueType,solConstant,solKeyword,solRepeat,solLabel,solException,solStructure,solFuncStorageType,solOperator,solNumber,solString,solFuncCall,solIf,solLoop skipempty skipwhite
+syn region    solFuncBody         contained contains=solDestructure,solComment,solAssemblyBlock,solEmitEvent,solTypeCast,solMethod,solValueType,solConstant,solKeyword,solRepeat,solLabel,solException,solStructure,solFuncStorageType,solOperator,solNumber,solString,solFuncCall,solIf,solElse,solLoop skipempty skipwhite
       \ start='{' 
       \ end='}' 
 syn match     solFuncCall         contained skipempty skipwhite nextgroup=solFuncCallParens
-      \ '\v%(%(<if>|<uint>|<int>|<ufixed>|<bytes>|<address>|<string>|<bool>)\s*)@<!<[a-zA-Z_][0-9a-zA-Z_]*\s*%(\((\n|.|\s)*\))@='
+      \ '\v%(%(<if>|<uint>|<int>|<ufixed>|<bytes>|<address>|<string>|<bool>)\s*)@<!<[a-zA-Z_][0-9a-zA-z_]*\s*%(\((\n|.|\s)*\))@='
 syn region    solFuncCallParens   contained transparent contains=solString,solFuncCall,solConstant,solNumber,solMethod,solTypeCast,solComma,solOperator
       \ start='('
       \ end=')'
@@ -141,7 +141,7 @@ hi def link   solFuncReturn       special
 syn keyword   solModifier         modifier nextgroup=solModifiername skipwhite
 syn match     solModifierName     /\<[a-zA-Z_][0-9a-zA-z_]*/ contained nextgroup=solModifierParam skipwhite
 syn region    solModifierParam    start='(' end=')' contained contains=solComma,solValueType,solFuncStorageType nextgroup=solModifierBody skipwhite skipempty
-syn region    solModifierBody     start='{' end='}' contained contains=solDestructure,solAssemblyBlock,solEmitEvent,solTypeCast,solMethod,solFuncCall,solModifierInsert,solValueType,solConstant,solKeyword,solRepeat,solLabel,solException,solStructure,solFuncStorageType,solOperator,solNumber,solString,solFuncCall,solIf,solLoop skipempty skipwhite transparent
+syn region    solModifierBody     start='{' end='}' contained contains=solDestructure,solAssemblyBlock,solEmitEvent,solTypeCast,solMethod,solFuncCall,solModifierInsert,solValueType,solConstant,solKeyword,solRepeat,solLabel,solException,solStructure,solFuncStorageType,solOperator,solNumber,solString,solFuncCall,solIf,solElse,solLoop skipempty skipwhite transparent
 syn match     solModifierInsert   /\<_\>/ containedin=solModifierBody
 
 hi def link   solModifier         Define
@@ -149,6 +149,7 @@ hi def link   solModifierName     Function
 hi def link   solModifierInsert   Function
 
 " Contracts, Libraries, Interfaces
+syn match     solAbstract         /\<abstract\>/ nextgroup=SolContract skipwhite
 syn match     solContract         /\<\%(contract\|library\|interface\)\>/ nextgroup=solContractName skipwhite
 syn match     solContractName     /\<[a-zA-Z_][0-9a-zA-Z_]*/ contained nextgroup=solContractParent skipwhite
 syn region    solContractParent   start=/\<is\>/ end='{' contained contains=solContractName,solComma,solInheritor
@@ -156,6 +157,7 @@ syn match     solInheritor        /\<is\>/ contained
 syn region    solLibUsing         start=/\<using\>/ end=/\<for\>/ contains=solLibName
 syn match     solLibName          /[a-zA-Z_][0-9a-zA-Z_]*\s*\zefor/ contained
 
+hi def link   solAbstract         Special
 hi def link   solContract         Define
 hi def link   solContractName     Function
 hi def link   solInheritor        Keyword
@@ -252,7 +254,7 @@ syn match     solValueType        /\<int\d*\s*\[\]/ nextgroup=solStorageType,sol
 syn match     solValueType        /\<fixed\d*\s*\[\]/ nextgroup=solStorageType,solStorageConst,solStorageImmutable skipwhite skipempty
 syn match     solValueType        /\<ufixed\d*\s*\[\]/ nextgroup=solStorageType,solStorageConst,solStorageImmutable skipwhite skipempty
 syn match     solValueType        /\<bytes\d*\s*\[\]/ nextgroup=solStorageType,solStorageConst,solStorageImmutable skipwhite skipempty
-syn match     solValueType        /\<address\%(\spayable\)\s*\[\]/ contains=solPayableType nextgroup=solStorageType,solStorageConst,solStorageImmutable skipwhite skipempty
+syn match     solValueType        /\<address\s*\(payable\)*\s*\[\]/ contains=solPayableType nextgroup=solStorageType,solStorageConst,solStorageImmutable skipwhite skipempty
 syn match     solValueType        /\<string\s*\[\]/ nextgroup=solStorageType,solStorageConst,solStorageImmutable skipwhite skipempty
 syn match     solValueType        /bool\s*\[\]/ nextgroup=solStorageType,solStorageConst,solStorageImmutable skipwhite skipempty
 
