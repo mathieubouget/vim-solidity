@@ -192,9 +192,15 @@ syn keyword   solReserved         sealed sizeof static supports switch typedef t
 hi def link   solReserved         Error
 
 " Pragma
-syn match     solPragma           /\<pragma\s*solidity\>/
+syn keyword   solPragma           pragma
+syn match     solPragmaVersion    /\(pragma\s*\)\@<=\<solidity\>/
+syn match     solPragmaExp        /\(pragma\s*\)\@<=\<experimental\s*\(ABIEncoderV2\|SMTChecker\)\>/
+syn match     solPragmaABICoder   /\(pragma\s*\)\@<=\<abicoder\s*\(v1\|v2\)\>/
 
 hi def link   solPragma           PreProc
+hi def link   solPragmaVersion    PreProc
+hi def link   solPragmaExp        PreProc
+hi def link   solPragmaABICoder   PreProc
 
 " Assembly
 syn keyword   solAssemblyName     assembly  contained
