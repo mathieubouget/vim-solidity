@@ -141,7 +141,7 @@ hi def link   solFuncReturn       special
 syn keyword   solModifier         modifier nextgroup=solModifiername skipwhite
 syn match     solModifierName     /\<[a-zA-Z_][0-9a-zA-Z_]*/ contained nextgroup=solModifierParam skipwhite
 syn region    solModifierParam    start='(' end=')' contained contains=solComma,solValueType,solFuncStorageType nextgroup=solModifierBody skipwhite skipempty
-syn region    solModifierBody     start='{' end='}' contained contains=solDestructure,solAssemblyBlock,solEmitEvent,solTypeCast,solMethod,solFuncCall,solModifierInsert,solValueType,solConstant,solKeyword,solRepeat,solLabel,solException,solStructure,solFuncStorageType,solOperator,solNumber,solString,solFuncCall,solIf,solElse,solLoop skipempty skipwhite transparent
+syn region    solModifierBody     start='{' end='}' contained contains=solDestructure,solComment,solAssemblyBlock,solEmitEvent,solTypeCast,solMethod,solValueType,solConstant,solKeyword,solRepeat,solLabel,solException,solStructure,solFuncStorageType,solOperator,solNumber,solString,solFuncCall,solIf,solElse,solLoop,solModifierInsert skipempty skipwhite transparent
 syn match     solModifierInsert   /\<_\>/ containedin=solModifierBody
 
 hi def link   solModifier         Define
