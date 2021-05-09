@@ -32,13 +32,7 @@ I intend to use this tool daily, so expect updates! PRs are also welcome.
 
 ## Installation
 
-**Important:** If you are using `vim-polyglot` make sure to disable the default syntax provider for solidity:
-
-```
-let g:polyglot_disabled = ['solidity']
-```
-
-If you do not do this, you will be using a combination of the old tomlion repo and this new repo. You will get some strange syntax...
+**Important:** If you are using the latest version of `vim-polyglot`, this repo's syntax is already included. No further action is required.
 
 ### Pathogen
 
