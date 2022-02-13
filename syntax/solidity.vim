@@ -252,7 +252,6 @@ syn keyword   solRepeat           do
 syn keyword   solLabel            break continue
 syn keyword   solException        throw
 
-
 hi def link   solRepeat           Repeat
 hi def link   solLabel            Label
 hi def link   solException        Exception
