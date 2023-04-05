@@ -184,7 +184,9 @@ hi def link   solEmitEvent        Special
 " Errors
 syn match     solError            /\<error\>/ nextgroup=solErrorName,solFuncParams skipwhite
 syn match     solErrorName        /\<[a-zA-Z_][0-9a-zA-Z_]*/ nextgroup=solFuncParam contained skipwhite
+syn region    solErrorParam       start='(' end=')' contains=solComma,solValueType,other contained skipwhite skipempty
 
+hi def link   solError            Define
 hi def link   solErrorName        Function
 
 " Constants
