@@ -321,6 +321,8 @@ syn match     solNatspecTag       /@author\>/ contained
 syn match     solNatspecTag       /@notice\>/ contained
 syn match     solNatspecTag       /@param\>/ contained
 syn match     solNatspecTag       /@return\>/ contained
+syn match     solNatspecTag       /@inheritdoc\>/ contained
+syn match     solNatspecTag       /@custom:[a-z][a-z-]*/ contained
 syn match     solNatspecParam     /\(@param\s*\)\@<=\<[a-zA-Z_][0-9a-zA-Z_]*/
 syn region    solNatspecBlock     start=/\/\/\// end=/$/ contains=solTodo,solNatspecTag,solNatspecParam,@Spell
 syn region    solNatspecBlock     start=/\/\*\{2}/ end=/\*\// contains=solTodo,solNatspecTag,solNatspecParam,@Spell
