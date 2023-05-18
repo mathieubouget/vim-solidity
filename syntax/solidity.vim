@@ -330,3 +330,4 @@ syn region    solNatspecBlock     start=/\/\*\{2}/ end=/\*\// contains=solTodo,s
 hi def link   solNatspecTag       SpecialComment
 hi def link   solNatspecBlock     Comment
 hi def link   solNatspecParam     Define
+let b:current_syntax = "solidity"
